@@ -8,7 +8,7 @@ gulp.task('default', ['html', 'css', 'js'])
 
 // SASS TO CSS
 gulp.task('css', function (){
-  gulp.src('./sass/styles.scss')
+  gulp.src('./styles.css')
   .pipe(sass())
   .pipe(gulp.dest('./public'))
 });
