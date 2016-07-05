@@ -22,24 +22,21 @@ app.controller('jeopardyController', function($scope, $http) {
           console.log(response);
             $scope.myQuestion = response.data[0];
             $scope.historyArray.push({question: $scope.myQuestion.question});
+            // $scope.historyArray.push({value: $scope.myQuestion.value});        
         })
     };
     $scope.newQuestion();
 
-    // $scope.totalScore = function() {
-    //   console.log('scoring things');
-    //   $scope.score = $scope.myQuestion.value +
-    // }
-
     $scope.correctAnswer = function() {
-      $scope.score = $scope.myQuestion.value
       $scope.rightAnswer = $scope.myQuestion.answer
       if ($scope.userAnswer === $scope.myQuestion.answer) {
         console.log('correct');
-        return ($scope.score + $scope.score)
+        let addScore = Number($scope.myQuestion.value + $scope.score)
+        $scope.score = addScore
       } else {
         console.log("incorrect");
-        return ($scope.score - $scope.score)
+        let subScore = Number($scope.score - $scope.myQuestion.value)
+        $scope.score = subScore
       }
     }
 });

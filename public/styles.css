@@ -1,0 +1,29 @@
+* {
+  font-family: 'Homenaje', sans-serif; }
+
+body {
+  width: 80%;
+  margin: 0 auto;
+  background-image: url("https://nachodonut.files.wordpress.com/2010/01/jeopardy-pic.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+section {
+  margin-top: 30%;
+  color: #FFF;
+  border-left: solid 5px #CC9900;
+  text-indent: 2%; }
+
+input {
+  font-size: 18px;
+  height: 1.8em;
+  width: 16%;
+  text-align: center;
+  margin-left: 35%;
+  margin-top: 3%; }
+
+button {
+  height: 1.8em;
+  font-size: 16px;
+  margin: 0 1%;
+  cursor: pointer; }

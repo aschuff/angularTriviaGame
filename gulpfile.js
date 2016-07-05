@@ -28,7 +28,7 @@ gulp.task('js', function(){
 
 // WATCH CHANGES
 gulp.task('watch', function(){ //npm install gulp-watch
-  gulp.watch('./.css', ['css']);
+  gulp.watch('./styles.css', ['css']);
   gulp.watch('./index.html', ['html']);
   gulp.watch('./js/*.js', ['js']);
 });
