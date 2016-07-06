@@ -13,9 +13,12 @@ gulp.task('css', function (){
   .pipe(gulp.dest('./public'))
 });
 
-// MINIFY
+// HTML
 gulp.task('html', function(){
-  gulp.src('./index.html')
+  gulp.src('./templates/*.html')
+    .pipe(gulp.dest('./public/templates'))
+
+  return gulp.src('./index.html')
     .pipe(gulp.dest('./public'))
 });
 
@@ -31,4 +34,5 @@ gulp.task('watch', function(){ //npm install gulp-watch
   gulp.watch('./styles.css', ['css']);
   gulp.watch('./index.html', ['html']);
   gulp.watch('./js/*.js', ['js']);
+  gulp.watch('./templates/*.html', ['html']);
 });

@@ -8,11 +8,20 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-section {
+main {
     margin-top: 30%;
     color: #FFF;
     border-left: solid 5px #CC9900;
     text-indent: 2%;
+}
+nav {
+  color: #FFF;
+  cursor: pointer;
+}
+a {
+  color: #FFF;
+  text-decoration: none;
+  list-style-type: none;
 }
 input {
     font-size: 18px;

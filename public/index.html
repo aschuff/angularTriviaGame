@@ -6,27 +6,19 @@
     <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Homenaje" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.js"></script>
     <script src="app.js"></script>
     <title>Jeopardy!</title>
 </head>
 
 <body>
-    <section ng-controller="jeopardyController">
-        <h2>Category : {{myQuestion.category.title}}</h2>
-        <h2>For {{myQuestion.value}} points your question is: {{myQuestion.question}}</h2>
-
-        <input type="text" ng-model="userAnswer" placeholder="Good Luck!">
-        <button ng-click="correctAnswer()">Submit Answer</button>
-        <button ng-click="newQuestion()">Next Question</button>
-
-        <h2>Your Answer : {{userAnswer}}</h2>
-        <h2>Correct Answer : {{rightAnswer}}</h2>
-        <h2>Total Score : {{score}}</h2>
-        <h3>Previous Questions</h3>
-        <ul ng-repeat="question in historyArray | orderBy:'question'">
-            <li>{{question.question}}</li>
-        </ul>
-    </section>
+  <nav>
+    <ul>
+      <li><a href="#/home">Home</a></li>
+      <li><a href="#/newgame">New Game</a></li>
+    </ul>
+  </nav>
+  <main ng-view></main>
 </body>
 
 </html>
