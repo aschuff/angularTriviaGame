@@ -22,21 +22,23 @@ app.config(['$routeProvider', function($routeProvider) {
 app.controller('newgameController', ['questionService', '$scope', function(questionService, $scope) {
     $scope.categoryArray = questionService.getCategoryIds();
     $scope.valueArray = questionService.getValues();
+    // $scope.questionArray.questionService.getQuestions();
 
     $scope.selectValue = function() {
-      console.log('clicky');
-      let questionValue = categoryArray
-    }
-    // $scope.rightAnswer = '';
-    // $scope.userAnswer = '';
-    // $scope.score = 0;
-    //
-    // $scope.myQuestion = {
-    //     answer: 'your answer',
-    //     question: 'random question',
-    //     value: 0,
-    //     category: 'category',
-    // };
+      // for the value clicked on, grab the question associated with it
+            console.log('clicky');
+            questionService.getQuestions();
+        }
+        // $scope.rightAnswer = '';
+        // $scope.userAnswer = '';
+        // $scope.score = 0;
+        //
+        // $scope.myQuestion = {
+        //     answer: 'your answer',
+        //     question: 'random question',
+        //     value: 0,
+        //     category: 'category',
+        // };
 }]);
 app.controller('loginController', function($scope, $http) {
 
@@ -52,50 +54,70 @@ app.factory('userService', function($http) {
 });
 
 app.factory('questionService', function($http) {
-        let categoryArray = [];
-        let valueArray = [];
-        // let questionArray = [];
-        let idArray = [];
+    let categoryArray = [];
+    let valueArray = [];
+    let questionArray = [];
+    let idArray = [];
 
-        let getCategoryIds = function() {
+    let getCategoryIds = function() {
+        $http({
+            method: 'GET',
+            url: 'http://jservice.io/api/categories?count=5',
+        }).then(function(response) {
+            let categories = response.data;
+            angular.copy(categories, categoryArray);
+            console.log('categoryArray', categoryArray);
+            categoryArray.forEach(function(element) {
+                idArray.push(element.id);
+                console.log('ids', idArray);
+            })
+            getValues();
+        })
+    }
+    let getValues = function() {
+        idArray.forEach(function(element) {
             $http({
                 method: 'GET',
-                url: 'http://jservice.io/api/categories?count=5',
+                url: `http://jservice.io/api/clues?category=${element}`,
             }).then(function(response) {
-                let categories = response.data;
-                angular.copy(categories, categoryArray);
-                console.log('categoryArray', categoryArray);
-                categoryArray.forEach(function(element) {
-                    idArray.push(element.id);
-                    console.log('ids',idArray);
+                let pointValue = response.data.slice(0, 4)
+                pointValue.forEach(function(element) {
+                    valueArray.push(element.value)
                 })
-                getValues();
+                console.log('values', valueArray);
             })
-        }
-        let getValues = function() {
-            idArray.forEach(function(element) {
+        })
+      }
+        let getQuestions = function() {
+            questionArray.forEach(function(element) {
                 $http({
                     method: 'GET',
                     url: `http://jservice.io/api/clues?category=${element}`,
                 }).then(function(response) {
-                    let pointValue = response.data.slice(0, 4)
-                    pointValue.forEach(function(element){
-                      valueArray.push(element.value)
+                  console.log(response);
+                    let chosenQuestion = response.data
+                    chosenQuestion.forEach(function(element){
+                      console.log(element.question);
+                      questionArray.push(element.question)
                     })
-                    console.log('values', valueArray);
+                    console.log('questionArray', questionArray);
                 })
             })
-};
-  getCategoryIds()
+        }
+    getCategoryIds()
+    getQuestions()
 
-  return {
-    getCategoryIds: function() {
-        return categoryArray;
-    },
-    getValues: function() {
-      return valueArray;
-    },
-  }
+    return {
+        getCategoryIds: function() {
+            return categoryArray;
+        },
+        getValues: function() {
+            return valueArray;
+        },
+        getQuestions: function() {
+            return questionArray;
+        },
+    }
 });
 
 // $scope.correctAnswer = function() {
